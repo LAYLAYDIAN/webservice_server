@@ -15,10 +15,10 @@ import org.apache.solr.common.SolrDocumentList;
  * Created by DIAN on 2019/4/27.
  */
 public class SolrData {
+
     public String getData(String id){
 
         System.out.println("hello:"+id);
-//    getTxtFromTextFile(id);
         String urlString = "http://localhost:8983/solr/test";
         SolrClient solr = new HttpSolrClient.Builder(urlString).build();
         System.out.println("solr");
@@ -29,13 +29,11 @@ public class SolrData {
         params.setQuery("*:*");
         params.setStart(0);
         params.setRows((int)getDocTotalCount(solr));
-
         try {
             QueryResponse queryResponse = solr.query(params);
             ClusteringResponse clr = queryResponse.getClusteringResponse();
             List<Cluster> list = clr.getClusters();
             //拿到聚类数据集合,返回查询结果
-
             String txt = "";
             for (Cluster c : list) {
                 //类别标签
@@ -50,14 +48,10 @@ public class SolrData {
                 }
             }
         }
-        catch (SolrServerException e) {
+        catch (SolrServerException | IOException e) {
             e.printStackTrace();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "getdata";
+        return "getdate";
     }
     /**
      * @Author：sks
